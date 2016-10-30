@@ -1,0 +1,22 @@
+{
+  "name": "kafka-queue",
+  "version": "1.0.0",
+  "description": "Kafka Queue",
+  "main": "KafkaQueue.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Peebles",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/peebles/kafka-queue.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.1.2",
+    "bluebird": "^3.4.6",
+    "hashring": "^3.2.0",
+    "lodash": "^4.16.4",
+    "no-kafka": "^2.9.2"
+  }
+}

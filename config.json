@@ -1,0 +1,9 @@
+{
+  "kafkaQueue": {
+    "keyField": "deviceId",
+    "connectionString": "192.168.99.103:9092",
+    "logger": {
+      "logLevel": 1
+    }
+  }
+}
