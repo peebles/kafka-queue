@@ -84,8 +84,8 @@ when that instance dies, in which case 'X' will start getting processed by a rem
 
 ### Setting up Kafka for this example
 
-Create a docker machine to host zookeeper and kafka.  Note the IP address for this docker machine (DOCKER_HOST).
-Edit "RUN.sh" and replace 192.168.99.103 with the IP address of your docker machine.  Then execute "sh RUN.sh".
+Create a docker machine to host zookeeper and kafka.  Execute `eval $(docker-machine env MACHINE)`,
+then execute "sh RUN.sh".
 
 ## Reference Documentation
 
