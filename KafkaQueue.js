@@ -56,6 +56,11 @@ module.exports = function( app ) {
       // add the logger
       this.config.logger = this.config.logger || {};
       this.config.logger.logFunction = app.log;
+
+      // this is a queue: default the offset to the earliest item
+      // so when we restart, we start reading where we left off.
+      if ( this.config.startingOffset == undefined )
+	this.config.startingOffset = Kafka.EARLIEST_OFFSET;
     }
 
     connect( queue, groupId, messageHandler ) {
