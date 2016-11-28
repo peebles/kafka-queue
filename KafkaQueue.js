@@ -67,8 +67,14 @@ module.exports = function( app ) {
 	  let handle = {topic: topic, partition: partition, offset: m.offset, metadata: 'optional'};
 	  let message = JSON.parse( m.message.value.toString('utf8') );
 	  return new Promise( ( resolve, reject ) => {
-	    messageHandler({ handle: handle, msg: message });
-	    resolve();
+	    messageHandler({ handle: handle, msg: message }, ( err ) => {
+	      if ( err ) return reject( err );
+	      this.consumer.commitOffset( handle ).then( () => {
+		resolve();
+	      }).catch( (err) => {
+		reject( err );
+	      });
+	    });
 	  });
 	});
       }

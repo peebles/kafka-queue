@@ -30,16 +30,25 @@ Q.producer.connect( function( err ) {
 
 ```javascript
 let Q = require( 'kafka-queue' )( app );
-Q.consumer.connect( queueName, groupName, function( message ) {
+Q.consumer.connect( queueName, groupName, function( message, cb ) {
   let handle = message.handle;
   let msg = message.msg;
 
   console.log( JSON.stringify( msg ) );
   // when you know processing is good/done, advance the consumer's position in the queue
   // to the next message.
-  Q.consumer.commit( handle, function( err ) {
-    if ( err ) console.error( 'commit error:', err );
-  });
+  cb();
+});
+```
+
+Calling the `cb()` passed to your message handler controls the message commit.  Called with
+an err as the first argument will cancel the commit.
+
+You can explicity handle commits, although you should have to normally:
+
+```javascript
+Q.consumer.commit( handle, function( err ) {
+  if ( err ) console.error( 'commit error:', err );
 });
 ```
 
