@@ -14,8 +14,7 @@ docker container.
 ### Producer (enqueue)
 
 ```javascript
-// app should be { config: log: } at minimum (ala express)
-let Q = require( 'kafka-queue' )( app );
+let Q = require( 'kafka-queue' )( config );
 Q.producer.connect( function( err ) {
   if ( err ) exit( err );
   let message = { deviceId: '1001', p1: 'p1', p2: 'p2' };
@@ -29,7 +28,7 @@ Q.producer.connect( function( err ) {
 ### Consumer (dequeue)
 
 ```javascript
-let Q = require( 'kafka-queue' )( app );
+let Q = require( 'kafka-queue' )( config );
 Q.consumer.connect( queueName, groupName, function( message, cb ) {
   let handle = message.handle;
   let msg = message.msg;
@@ -54,7 +53,7 @@ Q.consumer.commit( handle, function( err ) {
 
 ### Config
 
-This wrapper expects `app.config.kafkaQueue` to look like:
+This wrapper expects `config` to look like:
 
 ```javascript
 {

@@ -17,17 +17,14 @@ let app = {
   }
 };
 
-let Q = require( './KafkaQueue' )( app );
+let Q = require( './KafkaQueue' )( app.config.kafkaQueue );
 
-Q.consumer.connect( stack, stack+'pipeline', function( message ) {
+Q.consumer.connect( stack, stack+'pipeline', function( message, cb ) {
 
   let handle = message.handle;
   let msg = message.msg;
 
   console.log( JSON.stringify( msg ) );
-  Q.consumer.commit( handle, function( err ) {
-    if ( err ) console.error( 'commit error:', err );
-  });
-  
+  cb();
 });
 

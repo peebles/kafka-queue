@@ -10,7 +10,7 @@ let app = {
   }
 };
 
-let Q = require( './KafkaQueue' )( app );
+let Q = require( './KafkaQueue' )( app.config.kafkaQueue );
 
 function exit( err ) {
   if ( err ) console.error( err );
@@ -24,7 +24,7 @@ Q.producer.connect( function( err ) {
 });
 
 function start() {
-  Q.consumer.connect( 'ingest', 'relayer', function( message ) {
+  Q.consumer.connect( 'ingest', 'relayer', function( message, cb ) {
 
     let handle = message.handle;
     let msg = message.msg;
@@ -37,9 +37,7 @@ function start() {
       
     }, function( err ) {
       if ( err ) console.error( err );
-      Q.consumer.commit( handle, function( err ) {
-	if ( err ) console.error( 'commit error:', err );
-      });
+      cb( err );
     });
     
   });

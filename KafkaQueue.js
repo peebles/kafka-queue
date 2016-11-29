@@ -5,16 +5,12 @@ let _ = require( 'lodash' );
 let Hashring = require( 'hashring' );
 let Promise = require('bluebird');
 
-module.exports = function( app ) {
+module.exports = function( config ) {
 
   class KafkaProducer {
     constructor() {
       // copy global kafka config
-      this.config = _.cloneDeep( app.config.kafkaQueue );
-
-      // add the logger
-      this.config.logger = this.config.logger || {};
-      this.config.logger.logFunction = app.log;
+      this.config = _.cloneDeep( config );
 
       // producer partitioner.  map message keys to partition numbers, based on the
       // number of available partitions.
@@ -51,16 +47,7 @@ module.exports = function( app ) {
   class KafkaConsumer {
     constructor() {
       // copy global kafka config
-      this.config = _.cloneDeep( app.config.kafkaQueue );
-
-      // add the logger
-      this.config.logger = this.config.logger || {};
-      this.config.logger.logFunction = app.log;
-
-      // this is a queue: default the offset to the earliest item
-      // so when we restart, we start reading where we left off.
-      if ( this.config.startingOffset == undefined )
-	this.config.startingOffset = Kafka.EARLIEST_OFFSET;
+      this.config = _.cloneDeep( config );
     }
 
     connect( queue, groupId, messageHandler ) {

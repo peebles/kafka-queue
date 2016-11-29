@@ -10,7 +10,7 @@ let app = {
   }
 };
 
-let Q = require( './KafkaQueue' )( app );
+let Q = require( './KafkaQueue' )( app.config.kafkaQueue );
 
 let count = 100;
 
