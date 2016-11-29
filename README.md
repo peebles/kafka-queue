@@ -29,7 +29,7 @@ Q.producer.connect( function( err ) {
 
 ```javascript
 let Q = require( 'kafka-queue' )( config );
-Q.consumer.connect( queueName, groupName, function( message, cb ) {
+Q.consumer.connect( queueName, groupId, function( message, cb ) {
   let handle = message.handle;
   let msg = message.msg;
 
@@ -50,6 +50,10 @@ Q.consumer.commit( handle, function( err ) {
   if ( err ) console.error( 'commit error:', err );
 });
 ```
+
+The `groupId` is optional to the call to `connect()`.  If not specified, then your config
+should contain a `groupId`.  If `groupId` is explicitly passed, it will override any value
+specified in the config.
 
 ### Config
 

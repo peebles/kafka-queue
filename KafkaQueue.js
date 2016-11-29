@@ -51,7 +51,15 @@ module.exports = function( config ) {
     }
 
     connect( queue, groupId, messageHandler ) {
-      this.config.groupId = groupId;
+
+      // groupId is optional.  If not specified, comes from config.  If specified
+      // overrides config
+      if ( ! messageHandler ) {
+	messageHandler = groupId; // was passed as second argument
+      }
+      else {
+	this.config.groupId = groupId;
+      }
       this.consumer = new Kafka.GroupConsumer( this.config );
 
       let dataHandler = ( messages, topic, partition ) => {

@@ -1,6 +1,6 @@
 {
   "name": "kafka-queue",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Kafka Queue",
   "main": "KafkaQueue.js",
   "scripts": {
